@@ -1,11 +1,34 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Hero from '../components/Hero.astro';
+import VideoSection from '../components/VideoSection.astro';
+import ConceptSection from '../components/ConceptSection.astro';
 ---
 
-<Layout>
-	<Welcome />
+<Layout title="Alpe Pianello - A Community in Progress">
+  <Hero 
+    title="Welcome to Alpe Pianello"
+    subtitle="We are a community growing toward a more authentic and mindful life, in harmony with nature."
+    contactName="Adam"
+  />
+  
+  <VideoSection />
+  
+  <ConceptSection 
+    type="explore"
+    contactName="Marco"
+    contactRole="Community Guide"
+    contactImage="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=faces"
+  />
+  
+  <ConceptSection 
+    type="support"
+    contactName="Elena"
+    contactRole="Project Coordinator"
+    contactImage="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=150&h=150&fit=crop&crop=faces"
+  />
 </Layout>
+
+<style>
+  /* Existing styles remain unchanged */
+</style>
