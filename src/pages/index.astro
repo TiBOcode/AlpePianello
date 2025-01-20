@@ -14,27 +14,34 @@ const currentYear = new Date().getFullYear();
   
   <section class="letter-section">
     <div class="letter-content">
-      <h2>Our Vision for {currentYear}</h2>
+      <h2>A Letter from Us to You</h2>
       
       <div class="letter">
-        <p>Dear fellow explorers and future community members,</p>
+        <p>Living in community is a dream—and, at times, a paradox. It's a vision of something better: a life where work, play, and rest are woven together in harmony, where the effort we give sustains not just the place but the people within it.</p>
         
-        <p>As we step into {currentYear}, we're excited to share how our community life is evolving. After years of experimenting and learning, we've created a rhythm that makes it easy for anyone to join us—whether for a few days or an entire season.</p>
+        <p>We're not offering perfection—far from it. What we're offering is an experiment, a wild and meaningful attempt to create a life where the foundations of sustainability support the freedom to explore, connect, and grow.</p>
         
-        <p>From April to October, our doors are open to welcome curious souls and dedicated supporters. We've crafted three distinct periods that flow through each month:</p>
+        <p>Come share your experience with others. Come see what it's like to dream together and build something real. Come, as you are, to this space where you can belong and help us imagine what's possible.</p>
         
-        <ul>
-          <li><strong>Open Community</strong> - Where spontaneity meets structure</li>
-          <li><strong>Relaxed Community</strong> - Time for rest and integration</li>
-          <li><strong>Community Exploration</strong> - Deep dives into specific themes</li>
-        </ul>
-        
-        <p>You can join us in two ways: as an Explorer, focusing on personal growth and discovery, or as a Supporter, actively contributing to our community's development. Both paths are valuable, both create the magic that is Alpe Pianello.</p>
-        
-        <div class="cta-buttons">
-          <a href="/roles" class="cta-button">Discover Your Role</a>
-          <a href="/periods" class="cta-button">Explore Our Rhythm</a>
-          <a href="/vision" class="cta-button">Learn Our Vision</a>
+        <div class="cta-grid">
+          <a href="/system" class="cta-button">
+            <div class="cta-content">
+              <h3>Our New System</h3>
+              <p>Discover how our community operates through three distinct periods each month, making it easy for anyone to join.</p>
+            </div>
+          </a>
+          <a href="/roles" class="cta-button">
+            <div class="cta-content">
+              <h3>Community Roles</h3>
+              <p>Learn about the two ways to join: as an Explorer focusing on personal growth, or as a Supporter actively contributing to our development.</p>
+            </div>
+          </a>
+          <a href="/vision" class="cta-button">
+            <div class="cta-content">
+              <h3>Our Vision</h3>
+              <p>Understand the dream we're building: a sustainable community where exploration and growth are part of daily life.</p>
+            </div>
+          </a>
         </div>
       </div>
     </div>
@@ -59,12 +66,12 @@ const currentYear = new Date().getFullYear();
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(255, 255, 255, 0.85);
   }
 
   .letter-content {
     position: relative;
-    max-width: 800px;
+    max-width: 1200px;
     margin: 0 auto;
   }
 
@@ -76,7 +83,7 @@ const currentYear = new Date().getFullYear();
   }
 
   .letter {
-    background: white;
+    background: rgba(255, 255, 255, 0.5);
     padding: 3rem;
     border-radius: 1rem;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -87,51 +94,56 @@ const currentYear = new Date().getFullYear();
     line-height: 1.8;
     color: #2d3436;
     margin-bottom: 1.5rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
-  .letter ul {
-    list-style: none;
-    padding: 0;
-    margin: 2rem 0;
-  }
-
-  .letter li {
-    font-size: 1.2rem;
-    line-height: 1.8;
-    color: #2d3436;
-    margin-bottom: 1rem;
-    padding-left: 1.5rem;
-    position: relative;
-  }
-
-  .letter li::before {
-    content: '•';
-    position: absolute;
-    left: 0;
-    color: #00b894;
-  }
-
-  .cta-buttons {
-    display: flex;
-    gap: 1rem;
-    justify-content: center;
-    margin-top: 3rem;
+  .cta-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 4rem;
+    max-width: 1200px;
   }
 
   .cta-button {
-    display: inline-block;
-    background-color: #00b894;
+    display: block;
+    background-color: #2F7336;
     color: white;
-    padding: 1rem 2rem;
-    border-radius: 2rem;
     text-decoration: none;
-    font-weight: 600;
     transition: all 0.3s ease;
+    height: 100%;
+    border-radius: 0.5rem;
+  }
+
+  .cta-content {
+    padding: 2rem;
+    height: 100%;
+  }
+
+  .cta-button h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: white;
+  }
+
+  .cta-button p {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0;
   }
 
   .cta-button:hover {
-    background-color: #00a28d;
+    background-color: #266030;
     transform: translateY(-2px);
+  }
+
+  @media (max-width: 1024px) {
+    .cta-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
 
   @media (max-width: 768px) {
@@ -151,13 +163,8 @@ const currentYear = new Date().getFullYear();
       font-size: 1.1rem;
     }
 
-    .cta-buttons {
-      flex-direction: column;
-    }
-
-    .cta-button {
-      width: 100%;
-      text-align: center;
+    .cta-grid {
+      grid-template-columns: 1fr;
     }
   }
 </style>
