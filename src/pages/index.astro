@@ -1,34 +1,163 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
-import VideoSection from '../components/VideoSection.astro';
-import ConceptSection from '../components/ConceptSection.astro';
+
+const currentYear = new Date().getFullYear();
 ---
 
 <Layout title="Alpe Pianello - A Community in Progress">
   <Hero 
     title="Welcome to Alpe Pianello"
-    subtitle="A growing community embracing authenticity, mindfulness, and harmony with nature where everyone contributes, belongs, and thrives together."
+    subtitle="A community in progress where exploration and growth meet daily life."
     contactName="Adam"
   />
   
-  <VideoSection />
-  
-  <ConceptSection 
-    type="explore"
-    contactName="Marco"
-    contactRole="Community Guide"
-    contactImage="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=faces"
-  />
-  
-  <ConceptSection 
-    type="support"
-    contactName="Elena"
-    contactRole="Project Coordinator"
-    contactImage="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=150&h=150&fit=crop&crop=faces"
-  />
+  <section class="letter-section">
+    <div class="letter-content">
+      <h2>Our Vision for {currentYear}</h2>
+      
+      <div class="letter">
+        <p>Dear fellow explorers and future community members,</p>
+        
+        <p>As we step into {currentYear}, we're excited to share how our community life is evolving. After years of experimenting and learning, we've created a rhythm that makes it easy for anyone to join us—whether for a few days or an entire season.</p>
+        
+        <p>From April to October, our doors are open to welcome curious souls and dedicated supporters. We've crafted three distinct periods that flow through each month:</p>
+        
+        <ul>
+          <li><strong>Open Community</strong> - Where spontaneity meets structure</li>
+          <li><strong>Relaxed Community</strong> - Time for rest and integration</li>
+          <li><strong>Community Exploration</strong> - Deep dives into specific themes</li>
+        </ul>
+        
+        <p>You can join us in two ways: as an Explorer, focusing on personal growth and discovery, or as a Supporter, actively contributing to our community's development. Both paths are valuable, both create the magic that is Alpe Pianello.</p>
+        
+        <div class="cta-buttons">
+          <a href="/roles" class="cta-button">Discover Your Role</a>
+          <a href="/periods" class="cta-button">Explore Our Rhythm</a>
+          <a href="/vision" class="cta-button">Learn Our Vision</a>
+        </div>
+      </div>
+    </div>
+  </section>
 </Layout>
 
 <style>
-  /* Existing styles remain unchanged */
+  .letter-section {
+    padding: 6rem 2rem;
+    background-color: #fff;
+    background-image: url('/Wood.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    position: relative;
+  }
+
+  .letter-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.95);
+  }
+
+  .letter-content {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    color: #2d3436;
+    margin-bottom: 3rem;
+  }
+
+  .letter {
+    background: white;
+    padding: 3rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .letter p {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    color: #2d3436;
+    margin-bottom: 1.5rem;
+  }
+
+  .letter ul {
+    list-style: none;
+    padding: 0;
+    margin: 2rem 0;
+  }
+
+  .letter li {
+    font-size: 1.2rem;
+    line-height: 1.8;
+    color: #2d3436;
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+    position: relative;
+  }
+
+  .letter li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: #00b894;
+  }
+
+  .cta-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 3rem;
+  }
+
+  .cta-button {
+    display: inline-block;
+    background-color: #00b894;
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 2rem;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+
+  .cta-button:hover {
+    background-color: #00a28d;
+    transform: translateY(-2px);
+  }
+
+  @media (max-width: 768px) {
+    .letter-section {
+      padding: 3rem 1rem;
+    }
+
+    h2 {
+      font-size: 2rem;
+    }
+
+    .letter {
+      padding: 1.5rem;
+    }
+
+    .letter p {
+      font-size: 1.1rem;
+    }
+
+    .cta-buttons {
+      flex-direction: column;
+    }
+
+    .cta-button {
+      width: 100%;
+      text-align: center;
+    }
+  }
 </style>

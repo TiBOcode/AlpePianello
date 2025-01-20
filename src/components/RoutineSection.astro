@@ -1,0 +1,175 @@
+---
+interface RoutineProps {
+  type: 'normal' | 'relaxed' | 'exploration';
+  title: string;
+  description: string;
+  features: string[];
+  color: string;
+}
+
+const routines: Record<string, RoutineProps> = {
+  normal: {
+    type: 'normal',
+    title: 'Normal Routine',
+    description: 'The true open period where you can join anytime. We follow a well-organized daily routine that leaves space for everyone to shape it.',
+    features: [
+      'Start the day with meditation',
+      'Join morning practices hosted by community members',
+      '4 hours of focused community work',
+      'Plant-based communal meals',
+      'Afternoon activities and exploration',
+      'Evening free time for spontaneous gatherings'
+    ],
+    color: '#00b894' // Green
+  },
+  relaxed: {
+    type: 'relaxed',
+    title: 'Relaxed Routine',
+    description: 'A period of tranquility for rest and preparation. Open to returning members only.',
+    features: [
+      'More relaxed daily schedule',
+      'Organic flow of activities',
+      'Perfect for deeper connection',
+      'Quieter atmosphere',
+      'Focus on rest and reflection',
+      'Available for returning members'
+    ],
+    color: '#e17055' // Orange
+  },
+  exploration: {
+    type: 'exploration',
+    title: 'Exploration Routine',
+    description: 'Structured experience packages built around specific topics we want to share with the world.',
+    features: [
+      'Full program participation required',
+      'Themed experiences',
+      'Focused group activities',
+      'Intensive learning opportunities',
+      'Community-led workshops',
+      'Deep dive into specific topics'
+    ],
+    color: '#0984e3' // Blue
+  }
+};
+
+const { type } = Astro.props;
+const routine = routines[type];
+---
+
+<section class="routine-section" style={`--routine-color: ${routine.color}`}>
+  <div class="routine-content">
+    <h2>{routine.title}</h2>
+    <p class="description">{routine.description}</p>
+    
+    <div class="features">
+      {routine.features.map(feature => (
+        <div class="feature-item">
+          <span class="feature-bullet">•</span>
+          {feature}
+        </div>
+      ))}
+    </div>
+
+    {type === 'normal' && (
+      <div class="daily-schedule">
+        <h3>Daily Schedule</h3>
+        <div class="schedule-grid">
+          <div class="time">07:00</div><div>Meditation & Morning Practice</div>
+          <div class="time">08:30</div><div>Breakfast</div>
+          <div class="time">09:15</div><div>Morning Meeting</div>
+          <div class="time">09:30</div><div>Community Work</div>
+          <div class="time">13:30</div><div>Plant-based Lunch</div>
+          <div class="time">15:00</div><div>Afternoon Activities</div>
+          <div class="time">19:00</div><div>Dinner</div>
+          <div class="time">20:00</div><div>Free Evening Time</div>
+        </div>
+      </div>
+    )}
+  </div>
+</section>
+
+<style>
+  .routine-section {
+    padding: 4rem 2rem;
+    background-color: #f8f9fa;
+  }
+
+  .routine-content {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  h2 {
+    font-size: 2.5rem;
+    color: var(--routine-color);
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+
+  .description {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: #636e72;
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 4rem;
+  }
+
+  .feature-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.1rem;
+    color: #2d3436;
+  }
+
+  .feature-bullet {
+    color: var(--routine-color);
+    font-size: 1.5rem;
+  }
+
+  .daily-schedule {
+    background: white;
+    border-radius: 1rem;
+    padding: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  h3 {
+    color: var(--routine-color);
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .schedule-grid {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .time {
+    font-weight: bold;
+    color: var(--routine-color);
+  }
+
+  @media (max-width: 768px) {
+    .routine-section {
+      padding: 2rem 1rem;
+    }
+
+    h2 {
+      font-size: 2rem;
+    }
+
+    .schedule-grid {
+      gap: 0.5rem;
+    }
+  }
+</style>

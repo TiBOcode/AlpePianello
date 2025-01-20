@@ -1,0 +1,91 @@
+---
+import Layout from '../layouts/Layout.astro';
+import JoinSection from '../components/JoinSection.astro';
+
+---
+
+<Layout title="Community Roles - Alpe Pianello">
+  <div class="roles-page">
+    <header class="page-header">
+      <h1>Two Ways to Join Our Community</h1>
+      <p>Choose your path of contribution and growth</p>
+    </header>
+
+    <div class="roles-content">
+      <div class="join-options">
+        <JoinSection type="explorer" />
+        <JoinSection type="supporter" />
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .roles-page {
+    min-height: 100vh;
+    background-color: #f8f9fa;
+  }
+
+  .page-header {
+    text-align: center;
+    padding: 6rem 2rem;
+    background-color: #fff;
+    background-image: url('/Garden1.jpg');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    color: white;
+  }
+
+  .page-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+  }
+
+  .page-header h1 {
+    position: relative;
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .page-header p {
+    position: relative;
+    font-size: 1.5rem;
+    opacity: 0.9;
+  }
+
+  .roles-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+  }
+
+  .join-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+
+  @media (max-width: 768px) {
+    .page-header {
+      padding: 4rem 1rem;
+    }
+
+    .page-header h1 {
+      font-size: 2rem;
+    }
+
+    .page-header p {
+      font-size: 1.2rem;
+    }
+
+    .roles-content {
+      padding: 2rem 1rem;
+    }
+  }
+</style>

@@ -1,0 +1,233 @@
+---
+interface Period {
+  type: 'open' | 'relaxed' | 'exploration';
+  start: number;
+  end: number;
+}
+
+interface Props {
+  month: string;
+  year: number;
+  periods: Period[];
+}
+
+const { month, year } = Astro.props;
+
+const getMonthDays = (month: string, year: number) => {
+  const monthIndex = new Date(`${month} 1, ${year}`).getMonth();
+  return new Date(year, monthIndex + 1, 0).getDate();
+};
+
+const getFirstDayOfMonth = (month: string, year: number) => {
+  return new Date(`${month} 1, ${year}`).getDay();
+};
+
+const totalDays = getMonthDays(month, year);
+const firstDay = getFirstDayOfMonth(month, year);
+const days = Array.from({ length: totalDays }, (_, i) => i + 1);
+const emptyDays = Array.from({ length: firstDay }, (_, i) => i);
+
+const getPeriodType = (day: number) => {
+  if (day >= 1 && day <= 13) return 'open';
+  if ((day >= 14 && day <= 18) || (day >= 28 && day <= 30)) return 'relaxed';
+  if (day >= 19 && day <= 27) return 'exploration';
+  return '';
+};
+
+const getPeriodLabel = (type: string) => {
+  switch (type) {
+    case 'open': return 'Open Community';
+    case 'relaxed': return 'Relaxed Community';
+    case 'exploration': return 'Community Exploration';
+    default: return '';
+  }
+};
+---
+
+<div class="calendar-container">
+  <div class="calendar-header">
+    <h2>{month} {year}</h2>
+  </div>
+
+  <div class="legend">
+    <div class="legend-item">
+      <span class="color-box open"></span>
+      <span>Open Community</span>
+    </div>
+    <div class="legend-item">
+      <span class="color-box relaxed"></span>
+      <span>Relaxed Community</span>
+    </div>
+    <div class="legend-item">
+      <span class="color-box exploration"></span>
+      <span>Community Exploration</span>
+    </div>
+  </div>
+
+  <div class="calendar">
+    <div class="weekdays">
+      <div>Sun</div>
+      <div>Mon</div>
+      <div>Tue</div>
+      <div>Wed</div>
+      <div>Thu</div>
+      <div>Fri</div>
+      <div>Sat</div>
+    </div>
+
+    <div class="days">
+      {emptyDays.map(() => (
+        <div class="day empty"></div>
+      ))}
+      
+      {days.map(day => {
+        const periodType = getPeriodType(day);
+        return (
+          <div class={`day ${periodType}`}>
+            <span class="day-number">{day}</span>
+            {day === 1 || getPeriodType(day) !== getPeriodType(day - 1) ? (
+              <span class="period-label">{getPeriodLabel(periodType)}</span>
+            ) : null}
+          </div>
+        );
+      })}
+    </div>
+  </div>
+</div>
+
+<style>
+  .calendar-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2rem;
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .calendar-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .calendar-header h2 {
+    font-size: 2rem;
+    color: #2d3436;
+    margin: 0;
+  }
+
+  .legend {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .color-box {
+    width: 1rem;
+    height: 1rem;
+    border-radius: 0.25rem;
+  }
+
+  .color-box.open {
+    background-color: #00b894;
+  }
+
+  .color-box.relaxed {
+    background-color: #e17055;
+  }
+
+  .color-box.exploration {
+    background-color: #0984e3;
+  }
+
+  .calendar {
+    border: 1px solid #e2e8f0;
+    border-radius: 0.5rem;
+    overflow: hidden;
+  }
+
+  .weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    background: #f8f9fa;
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  .weekdays div {
+    padding: 1rem;
+    text-align: center;
+    font-weight: 600;
+    color: #2d3436;
+  }
+
+  .days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+  }
+
+  .day {
+    aspect-ratio: 1;
+    padding: 0.5rem;
+    border: 1px solid #e2e8f0;
+    position: relative;
+    min-height: 100px;
+  }
+
+  .day.empty {
+    background: #f8f9fa;
+  }
+
+  .day.open {
+    background-color: rgba(0, 184, 148, 0.1);
+  }
+
+  .day.relaxed {
+    background-color: rgba(225, 112, 85, 0.1);
+  }
+
+  .day.exploration {
+    background-color: rgba(9, 132, 227, 0.1);
+  }
+
+  .day-number {
+    font-weight: 600;
+    color: #2d3436;
+  }
+
+  .period-label {
+    font-size: 0.8rem;
+    color: #636e72;
+    position: absolute;
+    bottom: 0.5rem;
+    left: 0.5rem;
+    right: 0.5rem;
+    text-align: center;
+  }
+
+  @media (max-width: 768px) {
+    .calendar-container {
+      padding: 1rem;
+    }
+
+    .legend {
+      flex-direction: column;
+      align-items: align;
+      gap: 0.5rem;
+    }
+
+    .day {
+      min-height: 60px;
+    }
+
+    .period-label {
+      font-size: 0.7rem;
+    }
+  }
+</style>

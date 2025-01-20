@@ -1,0 +1,108 @@
+---
+import Layout from '../layouts/Layout.astro';
+import RoutineSection from '../components/RoutineSection.astro';
+import Calendar from '../components/Calendar.astro';
+
+---
+
+<Layout title="Community Periods - Alpe Pianello">
+  <div class="periods-page">
+    <header class="page-header">
+      <h1>Our Monthly Rhythm</h1>
+      <p>Experience the flow of community life</p>
+    </header>
+
+    <div class="periods-content">
+      <section class="calendar-section">
+        <h2>April {new Date().getFullYear()} Schedule</h2>
+        <Calendar month="April" year={2025} />
+      </section>
+
+      <section class="routines-section">
+        <RoutineSection type="normal" />
+        <RoutineSection type="relaxed" />
+        <RoutineSection type="exploration" />
+      </section>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .periods-page {
+    min-height: 100vh;
+    background-color: #f8f9fa;
+  }
+
+  .page-header {
+    text-align: center;
+    padding: 6rem 2rem;
+    background-color: #fff;
+    background-image: url('/Community.jpg');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    color: white;
+  }
+
+  .page-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+  }
+
+  .page-header h1 {
+    position: relative;
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .page-header p {
+    position: relative;
+    font-size: 1.5rem;
+    opacity: 0.9;
+  }
+
+  .periods-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+  }
+
+  .calendar-section {
+    margin-bottom: 4rem;
+  }
+
+  .calendar-section h2 {
+    text-align: center;
+    font-size: 2rem;
+    color: #2d3436;
+    margin-bottom: 2rem;
+  }
+
+  .routines-section {
+    display: grid;
+    gap: 2rem;
+  }
+
+  @media (max-width: 768px) {
+    .page-header {
+      padding: 4rem 1rem;
+    }
+
+    .page-header h1 {
+      font-size: 2rem;
+    }
+
+    .page-header p {
+      font-size: 1.2rem;
+    }
+
+    .periods-content {
+      padding: 2rem 1rem;
+    }
+  }
+</style>
