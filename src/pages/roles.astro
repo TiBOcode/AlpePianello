@@ -1,10 +1,9 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import JoinSection from '../components/JoinSection.astro';
 
 ---
 
-<Layout title="Community Roles - Alpe Pianello">
+<Layout title="Join Our Community - Alpe Pianello">
   <div class="roles-page">
     <header class="page-header">
       <h1>Two Ways to Join Our Community</h1>
@@ -12,9 +11,34 @@ import JoinSection from '../components/JoinSection.astro';
     </header>
 
     <div class="roles-content">
-      <div class="join-options">
-        <JoinSection type="explorer" />
-        <JoinSection type="supporter" />
+      <div class="roles-grid">
+        <div class="role explorer">
+          <h2>Join as an Explorer</h2>
+          <p class="description">Experience our community life without long-term commitment</p>
+          
+          <ul class="features">
+            <li>Come Anytime, Leave Anytime</li>
+            <li>Access to all community activities</li>
+            <li>Daily rate includes accommodation and meals</li>
+            <li>Experience the Community life at your own Rhythm</li>
+          </ul>
+
+          <a href="#contact" class="cta-button">Start Your Journey</a>
+        </div>
+
+        <div class="role supporter">
+          <h2>Join as a Supporter</h2>
+          <p class="description">Commit to community work and stay longer for less</p>
+          
+          <ul class="features">
+            <li>5 hours work, 5 days a week</li>
+            <li>Reduced rates or free extended stays</li>
+            <li>Deeper community integration</li>
+            <li>Skills exchange opportunities</li>
+          </ul>
+
+          <a href="#contact" class="cta-button">Become a Supporter</a>
+        </div>
       </div>
     </div>
   </div>
@@ -30,7 +54,7 @@ import JoinSection from '../components/JoinSection.astro';
     text-align: center;
     padding: 6rem 2rem;
     background-color: #fff;
-    background-image: url('/Garden1.jpg');
+    background-image: url('/Wood.jpg');
     background-size: cover;
     background-position: center;
     position: relative;
@@ -47,14 +71,17 @@ import JoinSection from '../components/JoinSection.astro';
     background: rgba(0, 0, 0, 0.5);
   }
 
-  .page-header h1 {
+  .page-header h1, .page-header p {
     position: relative;
+    z-index: 1;
+  }
+
+  .page-header h1 {
     font-size: 3rem;
     margin-bottom: 1rem;
   }
 
   .page-header p {
-    position: relative;
     font-size: 1.5rem;
     opacity: 0.9;
   }
@@ -65,10 +92,72 @@ import JoinSection from '../components/JoinSection.astro';
     padding: 4rem 2rem;
   }
 
-  .join-options {
+  .roles-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 2rem;
+  }
+
+  .role {
+    background: white;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .explorer { border-top: 5px solid #00b894; }
+  .supporter { border-top: 5px solid #0984e3; }
+
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #2d3436;
+  }
+
+  .description {
+    font-size: 1.1rem;
+    color: #636e72;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+  }
+
+  .features {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 2rem;
+    flex-grow: 1;
+  }
+
+  .features li {
+    margin: 0.8rem 0;
+    padding-left: 1.5rem;
+    position: relative;
+  }
+
+  .features li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: #00b894;
+  }
+
+  .cta-button {
+    display: inline-block;
+    background-color: #00b894;
+    color: white;
+    padding: 1rem 2rem;
+    border-radius: 2rem;
+    text-decoration: none;
+    text-align: center;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+
+  .cta-button:hover {
+    background-color: #00a28d;
+    transform: translateY(-2px);
   }
 
   @media (max-width: 768px) {
@@ -78,10 +167,6 @@ import JoinSection from '../components/JoinSection.astro';
 
     .page-header h1 {
       font-size: 2rem;
-    }
-
-    .page-header p {
-      font-size: 1.2rem;
     }
 
     .roles-content {

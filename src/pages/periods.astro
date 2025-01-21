@@ -1,6 +1,5 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import RoutineSection from '../components/RoutineSection.astro';
 import GoogleCalendar from '../components/GoogleCalendar.astro';
 
 ---
@@ -8,17 +7,67 @@ import GoogleCalendar from '../components/GoogleCalendar.astro';
 <Layout title="Community Periods - Alpe Pianello">
   <div class="periods-page">
     <header class="page-header">
-      <h1>Our Monthly Rhythm</h1>
-      <p>Experience the flow of community life</p>
+      <h1>Our Community Rhythm</h1>
+      <p>April 1st - October 31st</p>
     </header>
-<GoogleCalendar />
 
+    <div class="periods-content">
+      <GoogleCalendar />
 
-      <section class="routines-section">
-        <RoutineSection type="normal" />
-        <RoutineSection type="relaxed" />
-        <RoutineSection type="exploration" />
-      </section>
+      <div class="routines-section">
+        <div class="routine normal">
+          <h2>Normal Routine</h2>
+          <p class="description">This is the true open period where you can join anytime. We follow a well-organized daily routine that leaves space for everyone to shape it.</p>
+          
+          <div class="schedule">
+            <h3>Daily Schedule</h3>
+            <div class="schedule-grid">
+              <div class="time">Morning</div>
+              <div class="activity">
+                <p>• Meditation</p>
+                <p>• Morning practices hosted by community members</p>
+                <p>• Breakfast</p>
+                <p>• Morning meeting for unity</p>
+              </div>
+              
+              <div class="time">Day</div>
+              <div class="activity">
+                <p>• 4 hours of focused community work</p>
+                <p>• Plant-based communal lunch</p>
+                <p>• Afternoon activities and exploration</p>
+              </div>
+              
+              <div class="time">Evening</div>
+              <div class="activity">
+                <p>• Dinner at 19:00</p>
+                <p>• Free time for spontaneous gatherings</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="routine relaxed">
+          <h2>Relaxed Routine</h2>
+          <p class="description">A period of tranquility for rest and preparation. Open to returning members only.</p>
+          <ul class="features">
+            <li>More relaxed daily schedule</li>
+            <li>Organic flow of activities</li>
+            <li>Perfect for deeper connection</li>
+            <li>Available for returning members</li>
+          </ul>
+        </div>
+
+        <div class="routine exploration">
+          <h2>Exploration Routine</h2>
+          <p class="description">Structured experience packages built around specific topics we want to share with the world.</p>
+          <ul class="features">
+            <li>Full program participation required</li>
+            <li>Themed experiences</li>
+            <li>Focused group activities</li>
+            <li>Option to join before or stay after</li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
 </Layout>
@@ -50,14 +99,17 @@ import GoogleCalendar from '../components/GoogleCalendar.astro';
     background: rgba(0, 0, 0, 0.5);
   }
 
-  .page-header h1 {
+  .page-header h1, .page-header p {
     position: relative;
+    z-index: 1;
+  }
+
+  .page-header h1 {
     font-size: 3rem;
     margin-bottom: 1rem;
   }
 
   .page-header p {
-    position: relative;
     font-size: 1.5rem;
     opacity: 0.9;
   }
@@ -68,20 +120,79 @@ import GoogleCalendar from '../components/GoogleCalendar.astro';
     padding: 4rem 2rem;
   }
 
-  .calendar-section {
-    margin-bottom: 4rem;
-  }
-
-  .calendar-section h2 {
-    text-align: center;
-    font-size: 2rem;
-    color: #2d3436;
-    margin-bottom: 2rem;
-  }
-
   .routines-section {
     display: grid;
     gap: 2rem;
+    margin-top: 4rem;
+  }
+
+  .routine {
+    background: white;
+    padding: 2rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .normal { border-top: 5px solid #00b894; }
+  .relaxed { border-top: 5px solid #e17055; }
+  .exploration { border-top: 5px solid #0984e3; }
+
+  .routine h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .description {
+    font-size: 1.1rem;
+    color: #636e72;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+  }
+
+  .schedule {
+    background: #f8f9fa;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    margin-top: 2rem;
+  }
+
+  .schedule h3 {
+    margin-bottom: 1.5rem;
+    color: #2d3436;
+  }
+
+  .schedule-grid {
+    display: grid;
+    gap: 2rem;
+  }
+
+  .time {
+    font-weight: bold;
+    color: #00b894;
+    font-size: 1.2rem;
+  }
+
+  .activity p {
+    margin: 0.5rem 0;
+    color: #2d3436;
+  }
+
+  .features {
+    list-style: none;
+    padding: 0;
+  }
+
+  .features li {
+    margin: 0.8rem 0;
+    padding-left: 1.5rem;
+    position: relative;
+  }
+
+  .features li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: #00b894;
   }
 
   @media (max-width: 768px) {
@@ -93,12 +204,12 @@ import GoogleCalendar from '../components/GoogleCalendar.astro';
       font-size: 2rem;
     }
 
-    .page-header p {
-      font-size: 1.2rem;
-    }
-
     .periods-content {
       padding: 2rem 1rem;
+    }
+
+    .schedule {
+      padding: 1rem;
     }
   }
 </style>
