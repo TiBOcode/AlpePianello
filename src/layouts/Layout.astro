@@ -4,6 +4,13 @@ interface Props {
 }
 
 const { title } = Astro.props;
+
+const navItems = [
+  { name: 'Community', path: '/vision' },
+  { name: 'Events', path: '/periods' },
+  { name: 'Projects', path: '/roles' },
+  { name: 'Give it a try', path: '/roles', highlight: true }
+];
 ---
 
 <!doctype html>
@@ -17,7 +24,26 @@ const { title } = Astro.props;
 		<title>{title}</title>
 	</head>
 	<body>
-		<slot />
+		<nav class="navbar">
+			<div class="nav-content">
+				<a href="/" class="logo">
+					<img src="/Logo.png" alt="Alpe Pianello" />
+				</a>
+				<div class="nav-links">
+					{navItems.map(item => (
+						<a 
+							href={item.path}
+							class={`nav-link ${item.highlight ? 'highlight' : ''}`}
+						>
+							{item.name}
+						</a>
+					))}
+				</div>
+			</div>
+		</nav>
+		<main>
+			<slot />
+		</main>
 	</body>
 </html>
 <style is:global>
@@ -32,10 +58,26 @@ const { title } = Astro.props;
 			white 60%
 		);
 	}
+	
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
+	
 	html {
 		font-family: system-ui, sans-serif;
-		background: #13151a;
+		background: #ffffff;
 	}
+	
+	body {
+		min-height: 100vh;
+	}
+
+	main {
+		padding-top: 72px; /* Height of navbar */
+	}
+	
 	code {
 		font-family:
 			Menlo,
@@ -46,5 +88,96 @@ const { title } = Astro.props;
 			Bitstream Vera Sans Mono,
 			Courier New,
 			monospace;
+	}
+
+	.navbar {
+		position: fixed;
+		top: 0;
+		left: 0;
+		right: 0;
+		height: 72px;
+		z-index: 1000;
+		background: rgba(255, 255, 255, 0.9);
+		backdrop-filter: blur(10px);
+		-webkit-backdrop-filter: blur(10px);
+		border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+	}
+
+	.nav-content {
+		max-width: 1200px;
+		height: 100%;
+		margin: 0 auto;
+		padding: 0 2rem;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+	.logo {
+		display: flex;
+		align-items: center;
+	}
+
+	.logo img {
+		height: 40px;
+		width: auto;
+	}
+
+	.nav-links {
+		display: flex;
+		gap: 2rem;
+		align-items: center;
+	}
+
+	.nav-link {
+		color: #2d3436;
+		text-decoration: none;
+		font-weight: 500;
+		transition: all 0.3s ease;
+		padding: 0.5rem 1rem;
+		border-radius: 0.5rem;
+	}
+
+	.nav-link:hover {
+		color: #00b894;
+	}
+
+	.nav-link.highlight {
+		background: #00b894;
+		color: white;
+	}
+
+	.nav-link.highlight:hover {
+		background: #00a28d;
+		transform: translateY(-2px);
+	}
+
+	@media (max-width: 768px) {
+		.nav-content {
+			padding: 0 1rem;
+			flex-direction: column;
+			justify-content: center;
+			gap: 0.5rem;
+		}
+
+		.navbar {
+			height: auto;
+			padding: 1rem 0;
+		}
+
+		.nav-links {
+			flex-wrap: wrap;
+			justify-content: center;
+			gap: 1rem;
+		}
+
+		.nav-link {
+			font-size: 0.9rem;
+			padding: 0.4rem 0.8rem;
+		}
+
+		main {
+			padding-top: 120px; /* Adjusted for mobile navbar height */
+		}
 	}
 </style>

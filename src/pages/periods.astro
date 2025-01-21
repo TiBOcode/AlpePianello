@@ -1,7 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import RoutineSection from '../components/RoutineSection.astro';
-import Calendar from '../components/Calendar.astro';
+import GoogleCalendar from '../components/GoogleCalendar.astro';
 
 ---
 
@@ -11,12 +11,8 @@ import Calendar from '../components/Calendar.astro';
       <h1>Our Monthly Rhythm</h1>
       <p>Experience the flow of community life</p>
     </header>
+<GoogleCalendar />
 
-    <div class="periods-content">
-      <section class="calendar-section">
-        <h2>April {new Date().getFullYear()} Schedule</h2>
-        <Calendar month="April" year={2025} />
-      </section>
 
       <section class="routines-section">
         <RoutineSection type="normal" />
