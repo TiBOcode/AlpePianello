@@ -4,11 +4,10 @@ interface Props {
   subtitle: string;
   contactName?: string;
 }
-
 const { title, subtitle, contactName = "Maria" } = Astro.props;
 ---
-
 <section class="hero">
+  <div class="hero-overlay"></div>
   <div class="hero-content">
     <img src="/src/assets/Logo.png" alt="Alpe Pianello Logo" class="logo" />
     <h1 class="title">Alpe Pianello</h1>
@@ -16,8 +15,10 @@ const { title, subtitle, contactName = "Maria" } = Astro.props;
     
     <div class="cta-container">
       <a href="/vision" class="cta-button">
-        <span class="cta-text">Visit Our Open Community</span>
-        <span class="date-range">April 1st - October 31st</span>
+        <div class="cta-content">
+          <span class="cta-text">Visit Our Open Community</span>
+          <span class="date-range">April 1st - October 31st</span>
+        </div>
         <span class="cta-arrow">→</span>
       </a>
     </div>
@@ -26,133 +27,166 @@ const { title, subtitle, contactName = "Maria" } = Astro.props;
 
 <style>
   .hero {
-    min-height: 80vh;
-    background-image: linear-gradient(
-      rgba(0, 0, 0, 0.4),
-      rgba(0, 0, 0, 0.4)
-    ),
-    url('/Community.jpg');
+    min-height: 90vh;
+    position: relative;
+    background-image: url('/Community.jpg');
     background-size: cover;
     background-position: center;
+    background-attachment: fixed;
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
     text-align: center;
     padding: 2rem;
+    overflow: hidden;
   }
 
-  .logo {
-    width: 200px;
-    height: auto;
-    margin-bottom: 2rem;
-    animation: float 6s ease-in-out infinite;
+  .hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.7) 0%,
+      rgba(0, 0, 0, 0.5) 100%
+    );
+    z-index: 1;
   }
 
   .hero-content {
+    position: relative;
+    z-index: 2;
     max-width: 800px;
     margin: 0 auto;
+    opacity: 0;
+    animation: contentFade 1s ease-out forwards;
+  }
+
+  .logo {
+    width: 180px;
+    height: auto;
+    margin-bottom: 2.5rem;
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
   }
 
   .title {
-    font-size: 4rem;
-    font-weight: 700;
+    font-size: 4.5rem;
+    font-weight: 800;
     margin-bottom: 1rem;
-    line-height: 1.2;
-    animation: slideIn 1s ease-out;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   }
 
   .subtitle {
     font-size: 1.8rem;
-    margin-bottom: 2.5rem;
-    line-height: 1.6;
-    opacity: 0.9;
-    animation: fadeIn 1.5s ease-out;
+    font-weight: 400;
+    margin-bottom: 3rem;
+    line-height: 1.4;
+    opacity: 0.95;
+    letter-spacing: 0.02em;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   }
 
   .cta-container {
     display: flex;
     justify-content: center;
     margin-bottom: 3rem;
-    animation: bounce 1s ease-out;
   }
 
   .cta-button {
-    background-color: rgba(255, 255, 255, 0.95);
+    background: rgba(255, 255, 255, 0.98);
     color: #333;
-    padding: 1.5rem 3rem;
-    border-radius: 2rem;
+    padding: 1.25rem 2.5rem;
+    border-radius: 3rem;
     text-decoration: none;
-    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
     transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  .cta-content {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
+    align-items: flex-start;
+    gap: 0.3rem;
   }
 
   .cta-text {
-    font-size: 1.4rem;
-    color: #00b894;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #2d3436;
   }
 
   .date-range {
-    font-size: 1rem;
-    opacity: 0.8;
+    font-size: 0.95rem;
+    color: #636e72;
   }
 
   .cta-arrow {
     font-size: 1.5rem;
+    color: #2d3436;
     transition: transform 0.3s ease;
   }
 
   .cta-button:hover {
-    background-color: white;
+    background: #ffffff;
     transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
   }
 
   .cta-button:hover .cta-arrow {
     transform: translateX(5px);
   }
 
-  @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-  }
-
-  @keyframes slideIn {
-    from { transform: translateY(-30px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-
-  @keyframes bounce {
-    0% { transform: scale(0.8); opacity: 0; }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); opacity: 1; }
+  @keyframes contentFade {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   @media (max-width: 768px) {
+    .hero {
+      min-height: 100vh;
+      padding: 1.5rem;
+      background-attachment: scroll;
+    }
+
     .logo {
-      width: 150px;
-      margin-bottom: 1.5rem;
+      width: 140px;
+      margin-bottom: 2rem;
     }
 
     .title {
       font-size: 3rem;
+      margin-bottom: 0.8rem;
     }
 
     .subtitle {
       font-size: 1.4rem;
+      margin-bottom: 2.5rem;
     }
 
     .cta-button {
-      padding: 1.2rem 2rem;
+      padding: 1rem 2rem;
+      flex-direction: column;
+      gap: 0.8rem;
+      width: 90%;
+      max-width: 300px;
+    }
+
+    .cta-content {
+      align-items: center;
     }
 
     .cta-text {

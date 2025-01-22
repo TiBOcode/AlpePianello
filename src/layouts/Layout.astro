@@ -2,15 +2,16 @@
 interface Props {
 	title: string;
 }
-
 const { title } = Astro.props;
-
 const navItems = [
   { name: 'Community', path: '/vision' },
-  { name: 'Events', path: '/periods' },
+  { name: 'Rhythm', path: '/periods' },
   { name: 'Projects', path: '/roles' },
   { name: 'Give it a try', path: '/roles', highlight: true }
 ];
+
+// Add current page detection
+const currentPath = Astro.url.pathname;
 ---
 
 <!doctype html>
@@ -26,39 +27,124 @@ const navItems = [
 	<body>
 		<nav class="navbar">
 			<div class="nav-content">
-				<a href="/" class="logo">
-					<img src="/Logo.png" alt="Alpe Pianello" />
-				</a>
-				<div class="nav-links">
-					{navItems.map(item => (
+				<div class="nav-left">
+					<a href="/" class="logo" aria-label="Home">
+						<img src="/src/assets/Logo.png" alt="Alpe Pianello" />
+						<div class="logo-glow"></div>
+					</a>
+				</div>
+
+				<button class="mobile-menu-button" aria-label="Toggle menu">
+					<div class="hamburger">
+						<span></span>
+						<span></span>
+						<span></span>
+					</div>
+				</button>
+
+				<div class="nav-links" role="navigation">
+					<div class="nav-background"></div>
+					{navItems.map((item, index) => (
 						<a 
 							href={item.path}
-							class={`nav-link ${item.highlight ? 'highlight' : ''}`}
+							class={`nav-link ${item.highlight ? 'highlight' : ''} ${item.path === currentPath ? 'active' : ''}`}
+							data-index={index}
 						>
-							{item.name}
+							<span class="nav-text">{item.name}</span>
+							{!item.highlight && (
+								<span class="nav-indicator">
+									<span class="nav-indicator-line"></span>
+								</span>
+							)}
+							{item.highlight && <span class="highlight-glow"></span>}
 						</a>
 					))}
 				</div>
 			</div>
+
+			<!-- Progress indicator for scroll -->
+			<div class="scroll-progress"></div>
 		</nav>
+
 		<main>
 			<slot />
 		</main>
+
+		<!-- Notification badge example -->
+		<div class="notification-badge" style="display: none;">
+			<span class="notification-count">1</span>
+		</div>
 	</body>
 </html>
+
+<script>
+	// Scroll Progress Indicator
+	const scrollProgress = document.querySelector('.scroll-progress');
+	window.addEventListener('scroll', () => {
+		const scrollPx = document.documentElement.scrollTop;
+		const winHeightPx = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+		const scrolled = `${scrollPx / winHeightPx * 100}%`;
+		scrollProgress.style.width = scrolled;
+	});
+
+	// Mobile Menu Toggle with Advanced Animation
+	const mobileMenuButton = document.querySelector('.mobile-menu-button');
+	const navLinks = document.querySelector('.nav-links');
+	const hamburger = document.querySelector('.hamburger');
+
+	mobileMenuButton?.addEventListener('click', () => {
+		mobileMenuButton.classList.toggle('active');
+		navLinks?.classList.toggle('active');
+		hamburger?.classList.toggle('active');
+	});
+
+	// Hover effect for nav links
+	const navItems = document.querySelectorAll('.nav-link:not(.highlight)');
+	navItems.forEach(item => {
+		item.addEventListener('mousemove', (e) => {
+			const rect = item.getBoundingClientRect();
+			const x = e.clientX - rect.left;
+			const y = e.clientY - rect.top;
+			
+			item.style.setProperty('--mouse-x', `${x}px`);
+			item.style.setProperty('--mouse-y', `${y}px`);
+		});
+	});
+
+	// Navbar hide/show on scroll
+	let lastScroll = 0;
+	const navbar = document.querySelector('.navbar');
+
+	window.addEventListener('scroll', () => {
+		const currentScroll = window.pageYOffset;
+		
+		if (currentScroll <= 0) {
+			navbar?.classList.remove('scroll-up');
+			return;
+		}
+		
+		if (currentScroll > lastScroll && !navbar?.classList.contains('scroll-down')) {
+			navbar?.classList.remove('scroll-up');
+			navbar?.classList.add('scroll-down');
+		} else if (currentScroll < lastScroll && navbar?.classList.contains('scroll-down')) {
+			navbar?.classList.remove('scroll-down');
+			navbar?.classList.add('scroll-up');
+		}
+		lastScroll = currentScroll;
+	});
+</script>
+
 <style is:global>
 	:root {
-		--soft-brown: #8B7355;
-		--soft-brown-hover: #9F8B76;
-		--accent: 136, 58, 234;
-		--accent-light: 224, 204, 250;
-		--accent-dark: 49, 10, 101;
-		--accent-gradient: linear-gradient(
-			45deg,
-			rgb(var(--accent)),
-			rgb(var(--accent-light)) 30%,
-			white 60%
-		);
+ --soft-brown: #000000;  /* Change this to black */
+    --soft-brown-hover: #333333; 
+		--navbar-height: 72px;
+		--navbar-bg: rgba(255, 255, 255, 0.98);
+		--navbar-blur: 20px;
+		--navbar-border: rgba(0, 0, 0, 0.08);
+		--text-primary: #2d3436;
+		--transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+		--glow-color: rgba(139, 115, 85, 0.3);
 	}
 	
 	* {
@@ -70,6 +156,8 @@ const navItems = [
 	html {
 		font-family: system-ui, sans-serif;
 		background: #ffffff;
+		scroll-padding-top: var(--navbar-height);
+		scroll-behavior: smooth;
 	}
 	
 	body {
@@ -77,32 +165,42 @@ const navItems = [
 	}
 
 	main {
-		padding-top: 72px;
-	}
-	
-	code {
-		font-family:
-			Menlo,
-			Monaco,
-			Lucida Console,
-			Liberation Mono,
-			DejaVu Sans Mono,
-			Bitstream Vera Sans Mono,
-			Courier New,
-			monospace;
+		padding-top: var(--navbar-height);
 	}
 
+	/* Advanced Navbar Styles */
 	.navbar {
 		position: fixed;
 		top: 0;
 		left: 0;
 		right: 0;
-		height: 72px;
+		height: var(--navbar-height);
 		z-index: 1000;
-		background: rgba(255, 255, 255, 0.9);
-		backdrop-filter: blur(10px);
-		-webkit-backdrop-filter: blur(10px);
-		border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+		background: var(--navbar-bg);
+		backdrop-filter: blur(var(--navbar-blur));
+		-webkit-backdrop-filter: blur(var(--navbar-blur));
+		border-bottom: 1px solid var(--navbar-border);
+		transition: transform 0.3s ease;
+	}
+
+	.scroll-down {
+		transform: translateY(-100%);
+	}
+
+	.scroll-up {
+		transform: translateY(0);
+		box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+	}
+
+	/* Scroll Progress Indicator */
+	.scroll-progress {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		height: 2px;
+		background: var(--soft-brown);
+		width: 0%;
+		transition: width 0.1s ease;
 	}
 
 	.nav-content {
@@ -115,71 +213,233 @@ const navItems = [
 		align-items: center;
 	}
 
+	/* Logo Styles */
 	.logo {
+		position: relative;
 		display: flex;
 		align-items: center;
+		transition: var(--transition);
 	}
 
 	.logo img {
 		height: 40px;
 		width: auto;
+		position: relative;
+		z-index: 1;
 	}
 
+	.logo-glow {
+		position: absolute;
+		width: 60px;
+		height: 60px;
+		background: var(--glow-color);
+		border-radius: 50%;
+		filter: blur(20px);
+		opacity: 0;
+		transition: opacity 0.3s ease;
+	}
+
+	.logo:hover .logo-glow {
+		opacity: 1;
+	}
+
+	/* Navigation Links */
 	.nav-links {
 		display: flex;
 		gap: 2rem;
 		align-items: center;
+		position: relative;
 	}
 
 	.nav-link {
-		color: #2d3436;
+		color: var(--text-primary);
 		text-decoration: none;
 		font-weight: 500;
-		transition: all 0.3s ease;
 		padding: 0.5rem 1rem;
 		border-radius: 0.5rem;
+		position: relative;
+		overflow: hidden;
+		transition: var(--transition);
 	}
 
-	.nav-link:hover {
-		color: var(--soft-brown);
+	.nav-text {
+		position: relative;
+		z-index: 1;
 	}
 
+	.nav-indicator {
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		height: 2px;
+		pointer-events: none;
+	}
+
+	.nav-indicator-line {
+		position: absolute;
+		bottom: 0;
+		left: var(--mouse-x, 50%);
+		width: 20px;
+		height: 2px;
+		background: var(--soft-brown);
+		transform: translateX(-50%) scaleX(0);
+		transition: transform 0.3s ease;
+	}
+
+	.nav-link:hover .nav-indicator-line,
+	.nav-link.active .nav-indicator-line {
+		transform: translateX(-50%) scaleX(1);
+	}
+
+	/* Highlight Button */
 	.nav-link.highlight {
 		background: var(--soft-brown);
 		color: white;
+		padding: 0.6rem 1.2rem;
+		position: relative;
+		overflow: hidden;
+		transition: transform 0.3s ease;
+	}
+
+	.highlight-glow {
+		position: absolute;
+		top: -50%;
+		left: -50%;
+		width: 200%;
+		height: 200%;
+		background: radial-gradient(
+			circle at center,
+			rgba(255, 255, 255, 0.2) 0%,
+			transparent 70%
+		);
+		pointer-events: none;
+		opacity: 0;
+		transition: opacity 0.3s ease;
+	}
+
+	.nav-link.highlight:hover .highlight-glow {
+		opacity: 1;
 	}
 
 	.nav-link.highlight:hover {
-		background: var(--soft-brown-hover);
 		transform: translateY(-2px);
 	}
 
-	@media (max-width: 768px) {
-		.nav-content {
-			padding: 0 1rem;
-			flex-direction: column;
-			justify-content: center;
-			gap: 0.5rem;
-		}
+	/* Mobile Menu Button */
+	.mobile-menu-button {
+		display: none;
+		background: transparent;
+		border: none;
+		cursor: pointer;
+		padding: 10px;
+		z-index: 100;
+	}
 
-		.navbar {
-			height: auto;
-			padding: 1rem 0;
+	.hamburger {
+		width: 24px;
+		height: 20px;
+		position: relative;
+	}
+
+	.hamburger span {
+		position: absolute;
+		width: 100%;
+		height: 2px;
+		background: var(--text-primary);
+		transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+		left: 0;
+	}
+
+	.hamburger span:nth-child(1) { top: 0; }
+	.hamburger span:nth-child(2) { top: 50%; transform: translateY(-50%); }
+	.hamburger span:nth-child(3) { bottom: 0; }
+
+	.hamburger.active span:nth-child(1) {
+		transform: translateY(9px) rotate(45deg);
+	}
+
+	.hamburger.active span:nth-child(2) {
+		opacity: 0;
+	}
+
+	.hamburger.active span:nth-child(3) {
+		transform: translateY(-9px) rotate(-45deg);
+	}
+
+	/* Notification Badge */
+	.notification-badge {
+		position: absolute;
+		top: 0;
+		right: -8px;
+		background: #ff4757;
+		color: white;
+		border-radius: 50%;
+		width: 20px;
+		height: 20px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 12px;
+		font-weight: bold;
+		animation: pulse 2s infinite;
+	}
+
+	@keyframes pulse {
+		0% { transform: scale(1); }
+		50% { transform: scale(1.1); }
+		100% { transform: scale(1); }
+	}
+
+	@media (max-width: 768px) {
+		.mobile-menu-button {
+			display: block;
 		}
 
 		.nav-links {
-			flex-wrap: wrap;
-			justify-content: center;
-			gap: 1rem;
+			position: fixed;
+			top: var(--navbar-height);
+			left: 0;
+			right: 0;
+			background: var(--navbar-bg);
+			padding: 2rem;
+			flex-direction: column;
+			gap: 1.5rem;
+			transform: translateY(-100%);
+			opacity: 0;
+			visibility: hidden;
+			transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+			backdrop-filter: blur(var(--navbar-blur));
+			-webkit-backdrop-filter: blur(var(--navbar-blur));
+		}
+
+		.nav-links.active {
+			transform: translateY(0);
+			opacity: 1;
+			visibility: visible;
 		}
 
 		.nav-link {
-			font-size: 0.9rem;
-			padding: 0.4rem 0.8rem;
+			width: 100%;
+			text-align: center;
+			transform: translateY(-20px);
+			opacity: 0;
 		}
 
-		main {
-			padding-top: 120px;
+		.nav-links.active .nav-link {
+			animation: slideIn 0.3s forwards;
+		}
+
+		.nav-link:nth-child(1) { animation-delay: 0.1s; }
+		.nav-link:nth-child(2) { animation-delay: 0.2s; }
+		.nav-link:nth-child(3) { animation-delay: 0.3s; }
+		.nav-link:nth-child(4) { animation-delay: 0.4s; }
+	}
+
+	@keyframes slideIn {
+		to {
+			opacity: 1;
+			transform: translateY(0);
 		}
 	}
 </style>

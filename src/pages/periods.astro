@@ -1,77 +1,3 @@
----
-import Layout from '../layouts/Layout.astro';
-import GoogleCalendar from '../components/GoogleCalendar.astro';
-
----
-
-<Layout title="Community Periods - Alpe Pianello">
-  <div class="periods-page">
-    <header class="page-header">
-      <h1>Our Community Rhythm</h1>
-      <p>April 1st - October 31st</p>
-    </header>
-
-    <div class="periods-content">
-      <GoogleCalendar />
-
-      <div class="routines-section">
-        <div class="routine normal">
-          <h2>Normal Routine</h2>
-          <p class="description">This is the true open period where you can join anytime. We follow a well-organized daily routine that leaves space for everyone to shape it.</p>
-          
-          <div class="schedule">
-            <h3>Daily Schedule</h3>
-            <div class="schedule-grid">
-              <div class="time">Morning</div>
-              <div class="activity">
-                <p>• Meditation</p>
-                <p>• Morning practices hosted by community members</p>
-                <p>• Breakfast</p>
-                <p>• Morning meeting for unity</p>
-              </div>
-              
-              <div class="time">Day</div>
-              <div class="activity">
-                <p>• 4 hours of focused community work</p>
-                <p>• Plant-based communal lunch</p>
-                <p>• Afternoon activities and exploration</p>
-              </div>
-              
-              <div class="time">Evening</div>
-              <div class="activity">
-                <p>• Dinner at 19:00</p>
-                <p>• Free time for spontaneous gatherings</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="routine relaxed">
-          <h2>Relaxed Routine</h2>
-          <p class="description">A period of tranquility for rest and preparation. Open to returning members only.</p>
-          <ul class="features">
-            <li>More relaxed daily schedule</li>
-            <li>Organic flow of activities</li>
-            <li>Perfect for deeper connection</li>
-            <li>Available for returning members</li>
-          </ul>
-        </div>
-
-        <div class="routine exploration">
-          <h2>Exploration Routine</h2>
-          <p class="description">Structured experience packages built around specific topics we want to share with the world.</p>
-          <ul class="features">
-            <li>Full program participation required</li>
-            <li>Themed experiences</li>
-            <li>Focused group activities</li>
-            <li>Option to join before or stay after</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-</Layout>
-
 <style>
   .periods-page {
     min-height: 100vh;
@@ -140,6 +66,7 @@ import GoogleCalendar from '../components/GoogleCalendar.astro';
   .routine h2 {
     font-size: 2rem;
     margin-bottom: 1rem;
+    color: #000000;
   }
 
   .description {
@@ -158,7 +85,7 @@ import GoogleCalendar from '../components/GoogleCalendar.astro';
 
   .schedule h3 {
     margin-bottom: 1.5rem;
-    color: #2d3436;
+    color: #000000;
   }
 
   .schedule-grid {
