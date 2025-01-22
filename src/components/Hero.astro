@@ -9,7 +9,9 @@ const { title, subtitle, contactName = "Maria" } = Astro.props;
 <section class="hero">
   <div class="hero-overlay"></div>
   <div class="hero-content">
-    <img src="/src/assets/Logo.png" alt="Alpe Pianello Logo" class="logo" />
+    <div class="logo-container">
+      <img src="/src/assets/Logo.png" alt="Alpe Pianello Logo" class="logo" />
+    </div>
     <h1 class="title">Alpe Pianello</h1>
     <p class="subtitle">A Community in Progress</p>
     
@@ -65,10 +67,15 @@ const { title, subtitle, contactName = "Maria" } = Astro.props;
     animation: contentFade 1s ease-out forwards;
   }
 
+  .logo-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2.5rem;
+  }
+
   .logo {
     width: 180px;
     height: auto;
-    margin-bottom: 2.5rem;
     filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
   }
 
