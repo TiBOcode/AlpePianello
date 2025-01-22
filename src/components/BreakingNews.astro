@@ -1,0 +1,215 @@
+---
+interface NewsItem {
+  title: string;
+  date: string;
+  summary: string;
+  slug: string;
+}
+
+const newsItems: NewsItem[] = [
+  {
+    title: "SCANDAL: Thomas Caught with Secret Wine Stash",
+    date: "2024-02-15",
+    summary: "Community shocked as Thomas's 'special grape juice' collection revealed during room inspection.",
+    slug: "thomas-wine-scandal"
+  },
+  {
+    title: "BREAKING: Tibo Signs Agreement in Paper Tie",
+    date: "2024-02-14",
+    summary: "Community meeting takes unexpected turn as Tibo appears in origami neckwear. 'It's eco-friendly,' he claims.",
+    slug: "tibo-paper-tie"
+  },
+  {
+    title: "CULINARY CHAOS: Fried Melon Pasta Experiment Goes Wrong",
+    date: "2024-02-13",
+    summary: "Kitchen innovation raises eyebrows. 'It seemed like a good idea at the time,' says confused chef.",
+    slug: "fried-melon-pasta"
+  },
+  {
+    title: "VEHICLE DRAMA: Thomas's Lada Breaks Down Again",
+    date: "2024-02-12",
+    summary: "Legendary vehicle achieves 20th breakdown milestone. Local mechanics consider retirement.",
+    slug: "lada-breakdown"
+  },
+  {
+    title: "POWER SURGE: Matteo's Energy Project Creates Light Show",
+    date: "2024-02-11",
+    summary: "Experimental sustainable energy system turns community into temporary disco. Neighbors impressed yet concerned.",
+    slug: "matteo-energy-project"
+  },
+  {
+    title: "FUTURE NEWS: Phil Schedules Day Off for 2027",
+    date: "2024-02-10",
+    summary: "Community calendar marked for historic event. Betting pool opens on likelihood of occurrence.",
+    slug: "phil-day-off"
+  },
+  {
+    title: "IDENTITY UPDATE: Matteo Announces Transition to Mattea",
+    date: "2024-02-09",
+    summary: "Chanty welcomes new sister-in-spirit. Community celebrates with impromptu dance party.",
+    slug: "matteo-mattea"
+  },
+  {
+    title: "MEDITATION MISHAP: Silent Retreat Ends in Spontaneous Karaoke",
+    date: "2024-02-08",
+    summary: "Three-day silence broken by unexpected rendition of 'Dancing Queen'. No one admits to starting it.",
+    slug: "silent-retreat-karaoke"
+  }
+];
+---
+
+<section class="breaking-news">
+  <div class="news-header">
+    <div class="breaking-label">BREAKING NEWS</div>
+    <div class="ticker">COMMUNITY EDITION • REAL FAKE NEWS • ABSOLUTELY VERIFIED • STORIES THAT DEFINITELY MAYBE HAPPENED</div>
+  </div>
+  
+  <div class="news-scroll">
+    <div class="news-container">
+      {newsItems.map(item => (
+        <a href={`/blog/${item.slug}`} class="news-item">
+          <div class="news-content">
+            <div class="news-date">{item.date}</div>
+            <h3>{item.title}</h3>
+            <p>{item.summary}</p>
+          </div>
+        </a>
+      ))}
+      {/* Duplicate items for seamless infinite scroll */}
+      {newsItems.map(item => (
+        <a href={`/blog/${item.slug}`} class="news-item">
+          <div class="news-content">
+            <div class="news-date">{item.date}</div>
+            <h3>{item.title}</h3>
+            <p>{item.summary}</p>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .breaking-news {
+    background-color: #f8f9fa;
+    padding: 4rem 2rem;
+    margin-top: 0;
+    overflow: hidden;
+    border-top: 1px solid #dee2e6;
+  }
+
+  .news-header {
+    margin-bottom: 3rem;
+    text-align: center;
+  }
+
+  .breaking-label {
+    display: inline-block;
+    background-color: #dc3545;
+    color: white;
+    padding: 0.5rem 1.5rem;
+    font-weight: bold;
+    font-size: 1.2rem;
+    border-radius: 2rem;
+    animation: pulse 2s infinite;
+    box-shadow: 0 2px 4px rgba(220, 53, 69, 0.3);
+  }
+
+  .ticker {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: #666;
+    font-weight: 500;
+    letter-spacing: 1px;
+  }
+
+  .news-scroll {
+    overflow: hidden;
+    position: relative;
+    padding: 1rem 0;
+    margin: 0 -2rem;
+  }
+
+  .news-container {
+    display: flex;
+    gap: 2rem;
+    animation: scroll 60s linear infinite;
+    padding: 0 2rem;
+  }
+
+  .news-item {
+    flex: 0 0 350px;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid #dee2e6;
+  }
+
+  .news-item:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .news-content {
+    padding: 1.5rem;
+  }
+
+  .news-date {
+    font-size: 0.9rem;
+    color: #dc3545;
+    margin-bottom: 0.8rem;
+    font-weight: 500;
+  }
+
+  h3 {
+    font-size: 1.3rem;
+    color: #2d3436;
+    margin-bottom: 1rem;
+    line-height: 1.4;
+    font-weight: 700;
+  }
+
+  p {
+    font-size: 1rem;
+    color: #636e72;
+    line-height: 1.6;
+  }
+
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+  }
+
+  @keyframes scroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(calc(-350px * 8 - 2rem * 8)); }
+  }
+
+  @media (max-width: 768px) {
+    .breaking-news {
+      padding: 2rem 1rem;
+    }
+
+    .news-scroll {
+      margin: 0 -1rem;
+    }
+
+    .news-container {
+      padding: 0 1rem;
+    }
+
+    .news-item {
+      flex: 0 0 300px;
+    }
+
+    @keyframes scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(calc(-300px * 8 - 2rem * 8)); }
+    }
+  }
+</style>
