@@ -96,6 +96,42 @@ export function getStaticPaths() {
           "The event has inspired a new community workshop: \"Mindful Musical Meditation: When Silence Meets Song,\" scheduled for next month."
         ]
       }
+    },
+    {
+      params: { slug: 'community-time-travel' },
+      props: {
+        title: "TEMPORAL TROUBLE: Community Calendar Found in Time Loop",
+        date: "2024-02-07",
+        content: [
+          "In a bizarre turn of events, the community's shared digital calendar has started displaying events from both next week and 1873 simultaneously. The glitch was discovered when several members showed up for what they thought was a meditation session, only to find themselves scheduled for a Victorian-era barn raising.",
+          "\"I was quite confused when the calendar reminded me to bring my own butter churn to morning yoga,\" reported one resident. The IT team suspects the issue stems from Mattea's recent energy project interfering with the space-time continuum.",
+          "Until the problem is resolved, community members are advised to ignore any calendar invites involving steam engines or telegraph maintenance workshops."
+        ]
+      }
+    },
+    {
+      params: { slug: 'sustainable-fashion-crisis' },
+      props: {
+        title: "FASHION EMERGENCY: Community Declares Sock Emergency",
+        date: "2024-02-06",
+        content: [
+          "The community's commitment to sustainable fashion faced its greatest challenge yet when the collective sock drawer reached critical levels of mismatching. Emergency meetings were called to address what some are calling 'The Great Sock Crisis of 2024.'",
+          "\"We've tried everything,\" explained the newly appointed Sock Coordination Committee chair. \"We've organized sock-matching meditation circles, sock-folding workshops, and even attempted to establish a sock-based currency system.\"",
+          "The crisis peaked when Tibo suggested a community-wide switch to sandals, leading to heated debates about sustainable footwear alternatives and toe liberation philosophy."
+        ]
+      }
+    },
+    {
+      params: { slug: 'meditation-garden-chaos' },
+      props: {
+        title: "GARDEN GAZETTE: Meditation Garden Achieves Sentience",
+        date: "2024-02-05",
+        content: [
+          "The community's prized meditation garden has reportedly achieved consciousness following months of intensive group meditation sessions. Witnesses report plants swaying in synchronization with om chants, and the zen rock garden occasionally rearranging itself into motivational messages.",
+          "\"I was doing my morning meditation when a sunflower tapped me on the shoulder and offered some really insightful life advice,\" claimed one resident. The garden's consciousness has been attributed to a unique combination of mindful gardening practices and residual energy from Mattea's recent experimental solar project.",
+          "The Garden Committee is currently drafting guidelines for respectful communication with enlightened plant life, while also gently discouraging the bamboo's attempts to start its own meditation workshops."
+        ]
+      }
     }
   ];
 }
@@ -103,6 +139,7 @@ export function getStaticPaths() {
 const { title, date, content } = Astro.props;
 
 import Layout from '../../layouts/Layout.astro';
+import BreakingNews from '../../components/BreakingNews.astro';
 ---
 
 <Layout title={title}>
@@ -118,6 +155,13 @@ import Layout from '../../layouts/Layout.astro';
     </div>
     <a href="/" class="back-link">← Back to Home</a>
   </article>
+
+  <div class="news-separator">
+    <h2>More Community Chronicles</h2>
+    <p>Because one weird story deserves another...</p>
+  </div>
+
+  <BreakingNews />
 </Layout>
 
 <style>
@@ -182,6 +226,23 @@ import Layout from '../../layouts/Layout.astro';
     transform: translateY(-2px);
   }
 
+  .news-separator {
+    text-align: center;
+    padding: 4rem 2rem 2rem;
+    background: #f8f9fa;
+  }
+
+  .news-separator h2 {
+    font-size: 2rem;
+    color: #2d3436;
+    margin-bottom: 0.5rem;
+  }
+
+  .news-separator p {
+    color: #636e72;
+    font-style: italic;
+  }
+
   @media (max-width: 768px) {
     .blog-post {
       padding: 1.5rem;
@@ -194,6 +255,14 @@ import Layout from '../../layouts/Layout.astro';
 
     .post-content {
       font-size: 1.1rem;
+    }
+
+    .news-separator {
+      padding: 3rem 1rem 1.5rem;
+    }
+
+    .news-separator h2 {
+      font-size: 1.5rem;
     }
   }
 </style>
