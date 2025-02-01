@@ -1,0 +1,119 @@
+<style>
+  .vision-section {
+    padding: 6rem 2rem;
+    background-image: url('/Wood.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    position: relative;
+  }
+
+  .vision-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.55);
+  }
+
+  .vision-content {
+    position: relative;
+    z-index: 1;
+  }
+
+  h2 {
+    font-size: 3rem;
+    color: #000000;
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .vision-text {
+    font-size: 1.25rem;
+    line-height: 1.8;
+    color: #2d3436;
+    margin-bottom: 4rem;
+  }
+
+  .vision-text p {
+    margin-bottom: 2rem;
+  }
+
+  .roles-section {
+    background: white;
+    border-radius: 1rem;
+    padding: 3rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  h3 {
+    font-size: 2rem;
+    color: #000000;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+
+  .roles-intro {
+    font-size: 1.2rem;
+    color: #636e72;
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .roles-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 2rem;
+  }
+
+  .role {
+    padding: 2rem;
+    background: #f8f9fa;
+    border-radius: 0.5rem;
+  }
+
+  h4 {
+    font-size: 1.5rem;
+    color: #000000;
+    margin-bottom: 1rem;
+  }
+
+  .role p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #636e72;
+  }
+
+  .roles-conclusion {
+    font-size: 1.2rem;
+    color: #2d3436;
+    text-align: center;
+    font-style: italic;
+  }
+
+  @media (max-width: 768px) {
+    .vision-section {
+      padding: 4rem 1.5rem;
+    }
+
+    .roles-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    h2 {
+      font-size: 2.5rem;
+    }
+
+    h3 {
+      font-size: 1.8rem;
+    }
+
+    .vision-text {
+      font-size: 1.1rem;
+    }
+  }
+</style>
